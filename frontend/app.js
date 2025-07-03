@@ -125,6 +125,10 @@ function renderRatedGames() {
         return (a.game.first_release_date || 0) - (b.game.first_release_date || 0);
       default:
         return 0;
+      case 'name-asc':
+        return a.game.name.localeCompare(b.game.name);
+      case 'name-desc':
+        return b.game.name.localeCompare(a.game.name);
     }
   });
 
