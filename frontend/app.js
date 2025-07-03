@@ -123,8 +123,6 @@ function renderRatedGames() {
         return (b.game.first_release_date || 0) - (a.game.first_release_date || 0);
       case 'year-asc':
         return (a.game.first_release_date || 0) - (b.game.first_release_date || 0);
-      default:
-        return 0;
       case 'name-asc':
         return a.game.name.localeCompare(b.game.name);
       case 'name-desc':
