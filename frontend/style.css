@@ -13,6 +13,11 @@ header {
   margin: 2em 0;
 }
 
+a{
+  text-decoration: none;
+  
+}
+
 header h1 {
   font-size: 3em;
   color: #8d2c96;
