@@ -15,7 +15,10 @@ header {
 
 a{
   text-decoration: none;
-  
+}
+
+a:visited {
+    color: #8d2c96;
 }
 
 header h1 {
