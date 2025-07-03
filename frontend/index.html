@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GAMERATING</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>GAMERATING</h1>
+    <nav>
+      <button id="tab-search" class="active">Search games</button>
+      <button id="tab-rated">My ratings</button>
+    </nav>
+  </header>
+
+  <main>
+    <section id="search-section">
+      <input type="text" id="search" placeholder="Search game by name..." />
+      <div id="games"></div>
+    </section>
+
+    <section id="rated-section" style="display:none;">
+  <div id="filters-wrapper" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1em; max-width: 1000px; margin-left: auto; margin-right: auto;">
+    <input type="text" id="search-rated" placeholder="Search in rated games..." />
+    <div id="filters" style="text-align: right;">
+      <select id="filter-year" class="custom-select">
+        <option value="">Všechny roky</option>
+        <!-- Roky se budou dynamicky doplňovat -->
+      </select>
+      <select id="sort-rated" class="custom-select">
+        <option value="">Default ordering</option>
+        <option value="newest">Newest rating</option>
+        <option value="oldest">Oldest rating</option>
+        <option value="rating-desc">Highest rating</option>
+        <option value="rating-asc">Lowest rating</option>
+      </select>
+    </div>
+  </div>
+  <div id="rated-games"></div>
+</section>
+  </main>
+<footer>
+    <p class="footer">Game Rating | © 2025 vojunko</p>
+  </footer>
+  <script src="app.js"></script>
+</body>
+</html>
