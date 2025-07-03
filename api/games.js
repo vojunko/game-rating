@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 let accessToken = '';
+
 async function getToken() {
   const res = await axios.post('https://id.twitch.tv/oauth2/token', null, {
     params: {
@@ -13,11 +14,16 @@ async function getToken() {
 }
 
 export default async function handler(req, res) {
+  const query = (req.query.q || '').trim();
+
   if (!accessToken) {
     await getToken();
   }
 
-  const query = req.query.q || '';
+  if (!query) {
+    return res.status(400).json({ error: 'Missing or empty query parameter' });
+  }
+
   const data = `search "${query}"; fields name,cover.url,first_release_date,rating,platforms.name,summary,category,genres.name; where category = (0,1); limit 10;`;
 
   try {
@@ -31,7 +37,6 @@ export default async function handler(req, res) {
   } catch (err) {
     if (err.response && err.response.status === 401) {
       await getToken();
-      // opakuj požadavek
       try {
         const igdbRes2 = await axios.post('https://api.igdb.com/v4/games', data, {
           headers: {
