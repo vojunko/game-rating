@@ -169,7 +169,7 @@ function renderRatedGames() {
 
 function updateFilters() {
   const ratedGames = JSON.parse(localStorage.getItem('ratedGames') || '{}');
-  const gamesArr = Object.values(ratedGames);
+  const gamesArr = Object.values(ratedGames).filter(entry => entry && entry.game);
 
   // --- Roky ---
   const yearsSet = new Set();
@@ -180,9 +180,8 @@ function updateFilters() {
     }
   });
 
-  // Naplnění selectu let
   filterYear.innerHTML = '<option value="">Release date</option>';
-  Array.from(yearsSet).sort((a,b) => b - a).forEach(year => {
+  Array.from(yearsSet).sort((a, b) => b - a).forEach(year => {
     const opt = document.createElement('option');
     opt.value = year.toString();
     opt.textContent = year;
