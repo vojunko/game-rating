@@ -82,36 +82,36 @@ function renderGames(games) {
 function renderRatedGames() {
   ratedContainer.innerHTML = '';
   const ratedGames = JSON.parse(localStorage.getItem('ratedGames') || '{}');
-  let gamesArr = Object.values(ratedGames); // pole objektů {rating, game, timestamp}
+  let gamesArr = Object.values(ratedGames).filter(entry => entry && entry.game);
 
   if (gamesArr.length === 0) {
     ratedContainer.innerHTML = '<p>You have no reviews yet.</p>';
     return;
   }
 
- // --- Filtrování podle roku vydání ---
-const selectedYear = filterYear.value;
-if (selectedYear) {
-  gamesArr = gamesArr.filter(({ game }) => {
-    if (!game.first_release_date) return false;
-    const year = new Date(game.first_release_date * 1000).getFullYear().toString();
-    return year === selectedYear;
-  });
-}
+  // --- Filtrování podle roku vydání ---
+  const selectedYear = filterYear.value;
+  if (selectedYear) {
+    gamesArr = gamesArr.filter(({ game }) => {
+      if (!game.first_release_date) return false;
+      const year = new Date(game.first_release_date * 1000).getFullYear().toString();
+      return year === selectedYear;
+    });
+  }
 
-// --- Filtrování podle hledaného textu ---
-const searchTerm = searchRatedInput.value.trim().toLowerCase();
-if (searchTerm.length > 0) {
-  gamesArr = gamesArr.filter(({ game }) => {
-    return game.name.toLowerCase().includes(searchTerm);
-  });
-}
+  // --- Filtrování podle hledaného textu ---
+  const searchTerm = searchRatedInput.value.trim().toLowerCase();
+  if (searchTerm.length > 0) {
+    gamesArr = gamesArr.filter(({ game }) => {
+      return game.name?.toLowerCase().includes(searchTerm);
+    });
+  }
 
   // --- Řazení ---
   const sort = sortRated.value;
   gamesArr.sort((a, b) => {
     switch (sort) {
-      case 'newest': // nejnovější hodnocení
+      case 'newest':
         return (b.timestamp || 0) - (a.timestamp || 0);
       case 'oldest':
         return (a.timestamp || 0) - (b.timestamp || 0);
@@ -165,6 +165,7 @@ if (searchTerm.length > 0) {
     });
   });
 }
+
 
 function updateFilters() {
   const ratedGames = JSON.parse(localStorage.getItem('ratedGames') || '{}');
